@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -62,6 +63,14 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
+static const char *mutecmd[] = { "vol", "mute", NULL };
+static const char *volupcmd[] = { "vol", "up", NULL };
+static const char *voldowncmd[] = { "vol", "down", NULL };
+// static const char *miccmd[] = { "amixer", "set", "Capture", "toggle", NULL };
+
+static const char *brupcmd[] = { "sudo", "xbacklight", "-inc", "10", NULL };
+static const char *brdowncmd[] = { "sudo", "xbacklight", "-dec", "10", NULL };
+
 /*
  * Xresources preferences to load at startup
  */
@@ -118,6 +127,11 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ 0, XF86XK_AudioMute, spawn, {.v = mutecmd } },
+	{ 0, XF86XK_AudioLowerVolume, spawn, {.v = voldowncmd } },
+	{ 0, XF86XK_AudioRaiseVolume, spawn, {.v = volupcmd } },
+	{ 0, XF86XK_MonBrightnessUp, spawn, {.v = brupcmd} },
+	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = brdowncmd} }
 };
 
 /* button definitions */
